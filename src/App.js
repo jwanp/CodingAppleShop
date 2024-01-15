@@ -6,7 +6,7 @@ import { Routes, Route, Link, useNavigate, Outlet  } from 'react-router-dom';
 
 import data from './data.js';
 import Detail from './routes/detail.js';
-
+import axios from 'axios';
 
 function App() {
 
@@ -44,7 +44,19 @@ function App() {
 }
 
 function Main(props){
-  
+  let [shoes,setShoes] = useState(props.shoes);
+  let [btnCnt,setBtnCnt] = useState(1);
+
+  function getShoes(url){
+    axios.get(url)
+    .then((결과)=>{
+      setShoes(shoes.concat(결과.data));
+    })
+    .catch(()=>{
+      console.log('실패함');
+    })
+    setBtnCnt(btnCnt + 1);
+  }
   return(
     <>
     <div className="main-bg">
@@ -52,7 +64,7 @@ function Main(props){
       <div className="container">
         <div className="row">
           {
-            props.shoes.map(function(a, i){
+            shoes.map(function(a, i){
               return(
                 <Item shoes = {a}/>
               )
@@ -60,6 +72,19 @@ function Main(props){
           }
         </div>
       </div>
+      {
+        btnCnt <= 2 &&(
+          <button onClick={(e)=>{
+            if(btnCnt == 1){
+              getShoes("https://codingapple1.github.io/shop/data2.json");
+            }else if(btnCnt == 2){
+              getShoes("https://codingapple1.github.io/shop/data3.json");
+            }
+          }}>버튼</button>
+        )
+
+      }
+      
     </>
   )
 }
