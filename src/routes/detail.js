@@ -1,5 +1,6 @@
 import { Outlet, useParams  } from 'react-router-dom';
 import {useState,useEffect} from 'react'; 
+import "./detail.css"
 // import styled from 'styled-components';
 
 // let Box = styled.div`
@@ -19,34 +20,53 @@ function Detail(props){
     let 찾은상품 = props.shoes.find((x)=>{
         return x.id == id;
     });
-    let [alertShowing, setalertShowing ]= useState(true);
-
+    let [alert, setAlert ]= useState(true);
+    
     useEffect(()=>{
-        setTimeout(()=>{
-            setalertShowing(false); 
+        let a = setTimeout(()=>{
+            setAlert(false); 
         },2000)
+        return ()=>{
+            clearTimeout(a);
+        }
     });
+
+    let [isNumber, setIsNumber] = useState(true);
+
  return(
     <div className="container">
         {
-            alertShowing
+            alert == true
             ? <div className="alert alert-warning">
                 2초 이내 구매시 할인    
             </div>
             : null
         }
-        <div className="row">
-            <div className="col-md-6">
-            <img src={"https://codingapple1.github.io/shop/shoes"+img_id+".jpg"} width="100%" alt=''/>
+            
+        <img src={"https://codingapple1.github.io/shop/shoes"+img_id+".jpg"} width="100%" alt=''/>
+            
+            
+        {
+            isNumber == false
+            ?  <div className='alert alert-danger'>
+                숫자만 입력하시오
             </div>
-            <div className="col-md-6">
-            <h4 className="pt-5">{찾은상품.title}</h4>
-            <p>{찾은상품.content}</p>
-            <p>{찾은상품.price}원</p>
-            <button className="btn btn-danger">주문하기</button> 
-            </div>
-        </div>
-        <Outlet></Outlet>
+            : null
+        }
+            
+        <input type="text" style = {{width: "200px"}} onChange={(e)=>{
+            if(!isNaN(e.target.value)&& !isNumber){
+                setIsNumber(true);
+            }else if(isNaN(e.target.value) && isNumber){
+                setIsNumber(false);
+            }
+        }}/>
+            
+        <h4 className="pt-5">{찾은상품.title}</h4>
+        <p>{찾은상품.content}</p>
+        <p>{찾은상품.price}원</p>
+        <button className="btn btn-danger">주문하기</button> 
+    
     </div> 
  )   
 }
