@@ -1,6 +1,8 @@
 import { Outlet, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Nav } from 'react-bootstrap';
+
+import { Context1 } from './../App.js';
 
 import './detail.css';
 // import styled from 'styled-components';
@@ -17,6 +19,8 @@ import './detail.css';
 // `;
 
 function Detail(props) {
+    let { 재고 } = useContext(Context1);
+
     let { id } = useParams();
     let img_id = Number(id) + 1;
     let 찾은상품 = props.shoes.find((x) => {
@@ -50,11 +54,8 @@ function Detail(props) {
     return (
         <div className={'container start ' + fade}>
             {alert == true ? <div className="alert alert-warning">2초 이내 구매시 할인</div> : null}
-
             <img src={'https://codingapple1.github.io/shop/shoes' + img_id + '.jpg'} width="100%" alt="" />
-
             {isNumber == false ? <div className="alert alert-danger">숫자만 입력하시오</div> : null}
-
             <input
                 type="text"
                 style={{ width: '200px' }}
