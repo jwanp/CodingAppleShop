@@ -1,10 +1,13 @@
 import { Outlet, useParams } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import { Nav } from 'react-bootstrap';
+import { UseDispatch } from 'react-redux';
 
 import { Context1 } from './../App.js';
-
+import { addItem } from '../store/cartSlice.js';
 import './detail.css';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 // import styled from 'styled-components';
 
 // let Box = styled.div`
@@ -19,6 +22,8 @@ import './detail.css';
 // `;
 
 function Detail(props) {
+    let dispatch = useDispatch();
+    let navigate = useNavigate();
     let { 재고 } = useContext(Context1);
 
     let { id } = useParams();
@@ -26,6 +31,7 @@ function Detail(props) {
     let 찾은상품 = props.shoes.find((x) => {
         return x.id == id;
     });
+
     let [alert, setAlert] = useState(true);
     let [탭, 탭변경] = useState(0);
 
@@ -71,7 +77,20 @@ function Detail(props) {
             <h4 className="pt-5">{찾은상품.title}</h4>
             <p>{찾은상품.content}</p>
             <p>{찾은상품.price}원</p>
-            <button className="btn btn-danger">주문하기</button>
+            <button
+                className="btn btn-danger"
+                onClick={() => {
+                    let item = {
+                        id: 찾은상품.id,
+                        name: 찾은상품.title,
+                        count: 1,
+                    };
+                    dispatch(addItem(item));
+                    // navigate('/cart');
+                }}
+            >
+                주문하기
+            </button>
             <Nav variant="tabs" defaultActiveKey="link0">
                 <Nav.Item>
                     <Nav.Link
