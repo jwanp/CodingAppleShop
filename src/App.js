@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 
@@ -12,6 +12,12 @@ import Cart from './routes/Cart.js';
 export let Context1 = createContext();
 
 function App() {
+    useEffect(() => {
+        if (localStorage.getItem('watched') == null) {
+            localStorage.setItem('watched', JSON.stringify([]));
+        }
+    }, []);
+
     let [shoes] = useState(data);
     let navigate = useNavigate();
     let [재고, 재고변경] = useState([10, 11, 12]);

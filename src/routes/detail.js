@@ -44,6 +44,14 @@ function Detail(props) {
         };
     });
 
+    useEffect(() => {
+        let watched = localStorage.getItem('watched');
+        watched = JSON.parse(watched);
+        watched.push(id);
+        watched = [...new Set(watched)];
+        localStorage.setItem('watched', JSON.stringify(watched));
+    });
+
     let [isNumber, setIsNumber] = useState(true);
     let [fade, setFade] = useState('');
 
