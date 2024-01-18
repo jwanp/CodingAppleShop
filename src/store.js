@@ -1,9 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit';
+import user from './store/userSlice.js';
 
-let user = createSlice({
-    name: 'user',
-    initialState: 'kim',
-});
 let stock = createSlice({
     name: 'stock',
     initialState: [10, 11, 12],

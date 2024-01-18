@@ -85,7 +85,7 @@ function Main(props) {
             <div className="container">
                 <div className="row">
                     {shoes.map(function (a, i) {
-                        return <Item shoes={a} />;
+                        return <Item shoes={a} key={i} />;
                     })}
                 </div>
             </div>
