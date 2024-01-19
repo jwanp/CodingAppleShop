@@ -20,8 +20,12 @@ import { useNavigate } from 'react-router-dom';
 //     color: black;
 //     padding: 10px;
 // `;
-
+var i = 0;
 function Detail(props) {
+    for (i = 0; i < 100000000; i++) {
+        i++;
+    }
+
     let dispatch = useDispatch();
     let navigate = useNavigate();
     let { 재고 } = useContext(Context1);
@@ -95,8 +99,7 @@ function Detail(props) {
                     };
                     dispatch(addItem(item));
                     // navigate('/cart');
-                }}
-            >
+                }}>
                 주문하기
             </button>
             <Nav variant="tabs" defaultActiveKey="link0">
@@ -105,8 +108,7 @@ function Detail(props) {
                         eventKey="link0"
                         onClick={() => {
                             탭변경(0);
-                        }}
-                    >
+                        }}>
                         버튼0
                     </Nav.Link>
                 </Nav.Item>
@@ -115,8 +117,7 @@ function Detail(props) {
                         eventKey="link1"
                         onClick={() => {
                             탭변경(1);
-                        }}
-                    >
+                        }}>
                         버튼1
                     </Nav.Link>
                 </Nav.Item>
@@ -125,8 +126,7 @@ function Detail(props) {
                         eventKey="link2"
                         onClick={() => {
                             탭변경(2);
-                        }}
-                    >
+                        }}>
                         버튼2
                     </Nav.Link>
                 </Nav.Item>
