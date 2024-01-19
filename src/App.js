@@ -4,6 +4,7 @@ import { lazy, Suspense, createContext, useEffect, useState } from 'react';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import { useQuery } from 'react-query';
+
 import data from './data.js';
 import axios from 'axios';
 
@@ -11,6 +12,7 @@ import axios from 'axios';
 // import Detail from './routes/detail.js';
 const Detail = lazy(() => import('./routes/detail.js'));
 const Cart = lazy(() => import('./routes/Cart.js'));
+const Transition = lazy(() => import('./routes/Transition.js'));
 
 export let Context1 = createContext();
 
@@ -85,6 +87,7 @@ function App() {
                         <Route path="two" element={<div>생일 기념 쿠폰 받기</div>} />
                     </Route>
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/transition" element={<Transition />} />
                     <Route path="*" element={<div>없는페이지임</div>} />
                 </Routes>
             </Suspense>
